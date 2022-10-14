@@ -1,0 +1,160 @@
+openapi: 3.0.0
+info:
+    version: '1.0'
+    title: 'API for webserver'
+
+paths:
+    /v1/oils/all:
+        get:
+            summary: 'Get all oils'
+            operationId: GetV1OilsAll
+            parameters:
+              - in: query
+                name: limit
+                schema:
+                    type: integer
+                    minimum: 0
+              - in: query
+                name: offset
+                schema:
+                    type: integer
+                    minimum: 0
+                    default: 0
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Oils'
+    /v1/oils/id:
+        get:
+            summary: 'Get oils'
+            operationId: GetV1OilsId
+            parameters:
+              - in: query
+                name: id
+                schema:
+                    type: integer
+              - in: query
+                name: limit
+                schema:
+                    type: integer
+                    minimum: 0
+              - in: query
+                name: offset
+                schema:
+                    type: integer
+                    minimum: 0
+                    default: 0
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OilsList'
+                '404':
+                    description: oil not found
+
+    /v1/oils/effect:
+        get:
+            summary: 'Get oils by effect'
+            operationId: GetV1OilsEffect
+            parameters:
+              - in: query
+                name: effect
+                schema:
+                    type: string
+              - in: query
+                name: limit
+                schema:
+                    type: integer
+                    minimum: 0
+              - in: query
+                name: offset
+                schema:
+                    type: integer
+                    minimum: 0
+                    default: 0
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/OilsList'
+                '404':
+                    description: effect not found
+
+    /v1/effects:
+        get:
+            summary: 'Get all effects'
+            operationId: GetV1Effects
+            parameters:
+              - in: query
+                name: limit
+                schema:
+                    type: integer
+                    minimum: 0
+              - in: query
+                name: offset
+                schema:
+                    type: integer
+                    minimum: 0
+                    default: 0
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/EffectsList'
+
+components:
+    schemas:
+        Oil:
+            type: object
+            additionalProperties: false
+            properties:
+                id:
+                    type: integer
+                name:
+                    type: string
+                volatility:
+                    type: string
+                aroma_group:
+                    type: string
+            required:
+              - id
+              - name
+
+        OilsList:
+            type: object
+            additionalProperties: false
+            properties:
+                oils:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Oil"
+        Effect:
+            type: object
+            additionalProperties: false
+            properties:
+                id:
+                    type: integer
+                name:
+                    type: string
+            required:
+              - id
+              - name
+
+        EffectsList:
+            type: object
+            additionalProperties: false
+            properties:
+                effects:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Effect"
+
