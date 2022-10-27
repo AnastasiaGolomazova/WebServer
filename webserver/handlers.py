@@ -1,5 +1,7 @@
 import logging
 from aiohttp import web
+import json
+from string import ascii_letters
 
 from decorators import decorator_logging_factory_async
 
@@ -71,3 +73,37 @@ async def get_v1_effects(request: web.Request):
         text='{"effects": ["id": 1, "name": "some_effect"]}',
         headers={"content-type": "application/json"},
     )
+
+
+
+@routes.get("/test")
+@decorator_logging_factory_async(logger)
+async def get_test(request: web.Request):
+    print(request.query)
+    limit = int(request.query.get("limit"), 0)
+    offset = int(request.query.get("offset", 0))
+
+    data = {
+        'limit': limit,
+        'offset': offset, 
+        'value': ascii_letters[offset: limit + offset]
+    }
+    return web.json_response(data)
+
+
+@routes.get("/test_json")
+@decorator_logging_factory_async(logger)
+async def get_test_json(request: web.Request):
+    data_json = await request.json()
+    print(data_json)
+    limit = int(data_json.get("limit"))
+    offset = int(data_json.get("offset"))
+
+    data = {
+        'limit': limit,
+        'offset': offset, 
+        'value': ascii_letters[offset: limit + offset]
+    }
+    return web.json_response(data)
+
+
