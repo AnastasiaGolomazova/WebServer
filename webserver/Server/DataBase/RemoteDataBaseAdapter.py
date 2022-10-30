@@ -10,6 +10,7 @@ from object.recipeprofile import RecipeProfile
 from object.steamessense import SteamEssense
 from object.typeessense import TypeEssense
 from object.volatity import Volatity
+from object.webpages import WebPages
 
 def getRequest():
      mySqlServer = "DESKTOP-JH4MSCG\SQLEXPRESS"
@@ -80,3 +81,22 @@ def getRequest():
 
      connection.close()
 
+
+def getRequestPage():
+  mySqlServer = "DESKTOP-JH4MSCG\SQLEXPRESS"
+  myDataBase = "WEB_SERVER_ESSENSE"
+  connection = pypyodbc.connect('Driver={SQL Server};'
+                            'Server='+ mySqlServer +';'
+                            'Database='+ myDataBase +';')
+
+
+  curcor = connection.cursor()
+  query = "SELECT * FROM [dbo].[WEB_PAGES]"
+  curcor.execute(query)
+  result = curcor.fetchall()
+  listWebPages = []
+  for item in result:
+    listWebPages.append(WebPages(item[0],item[1]))
+
+  connection.close()
+  return listWebPages
