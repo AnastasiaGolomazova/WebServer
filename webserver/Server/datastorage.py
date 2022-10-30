@@ -1,4 +1,3 @@
-import Object.essense as Essense
 
 class DataStorage:
     __instance = None
@@ -7,6 +6,7 @@ class DataStorage:
         self.Essense = []
         self.TypeProfile = []
         self.TypeEssense  = []
+        self.EffectEssense  = []
         self.Recipe = []
         self.Effect = []
         self.Volatity = []
@@ -21,28 +21,28 @@ class DataStorage:
         return cls.__instance
 
     def addEssense(self, essense):
-        self.Essense.Add(essense)
+        self.Essense.append(essense)
 
     def addTypeProfile(self, typeProfile):
-        self.TypeProfile.Add(typeProfile)
+        self.TypeProfile.append(typeProfile)
 
     def addRecipe (self, typeEssense):
-        self.TypeEssense.Add(typeEssense)
+        self.TypeEssense.append(typeEssense)
 
     def addTypeEssense(self, recipe):
-        self.Recipe.Add(recipe)
+        self.Recipe.append(recipe)
 
     def addEffect(self, effect):
-        self.Effect.Add(effect)
+        self.Effect.append(effect)
 
     def addVolatity (self, volatity):
-        self.Volatity.Add(volatity)
+        self.Volatity.append(volatity)
 
     def addProfile(self, profile):
-        self.Profile.Add(profile)
+        self.Profile.append(profile)
 
     def addSteamEssense (self, steamEssense):
-        self.SteamEssense.Add(steamEssense)
+        self.SteamEssense.append(steamEssense)
 
 
     def getEssense(self, id):

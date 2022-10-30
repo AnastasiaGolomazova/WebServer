@@ -4,6 +4,8 @@ from aiohttp import web
 from handlers import routes
 from middleware import middleware
 
+import dataBase.remoteDataBaseAdapter as db
+
 from decorators import decorator_logging_factory
 
 
@@ -29,6 +31,7 @@ def get_application():
 
 def main():
     logger.info("Program started")
+    db.getRequest()
     app = get_application()
     web.run_app(app, port=8080)
 
