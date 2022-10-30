@@ -3,11 +3,9 @@ import logging
 from aiohttp import web
 from handlers import routes
 from middleware import middleware
-
 import dataBase.remoteDataBaseAdapter as db
 
 from decorators import decorator_logging_factory
-
 
 log_filename = os.path.join(os.path.dirname(__file__), "debug.log")
 
