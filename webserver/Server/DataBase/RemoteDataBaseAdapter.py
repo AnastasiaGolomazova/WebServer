@@ -11,6 +11,7 @@ from object.steamessense import SteamEssense
 from object.typeessense import TypeEssense
 from object.volatity import Volatity
 from object.webpages import WebPages
+from object.combinationessense import CombinationEssense
 
 def getRequest():
      mySqlServer = "DESKTOP-JH4MSCG\SQLEXPRESS"
@@ -47,11 +48,11 @@ def getRequest():
      for item in result:
        dataStorage.addProfile(Profile(item[0],item[1],item[2]))
 
-     query = "SELECT * FROM [dbo].[RECIPE]"
+     query = "SELECT * FROM [dbo].[COMBINATION_ESSENSE]"
      curcor.execute(query)
      result = curcor.fetchall()
      for item in result:
-       dataStorage.addRecipe(Recipe(item[0],item[1]))
+       dataStorage.addCombinationEssense(CombinationEssense(item[0],item[2],item[3],item[1]))
 
      query = "SELECT PROFILE_ID, RECIPE_ID FROM [dbo].[RECIPE_PROFILE]"
      curcor.execute(query)
@@ -96,7 +97,26 @@ def getRequestPage():
   result = curcor.fetchall()
   listWebPages = []
   for item in result:
-    listWebPages.append(WebPages(item[0],item[1]))
+    listWebPages.append(WebPages(item[0],item[2],item[1]))
 
   connection.close()
   return listWebPages
+
+
+def getRecipe(id):
+  mySqlServer = "DESKTOP-JH4MSCG\SQLEXPRESS"
+  myDataBase = "WEB_SERVER_ESSENSE"
+  connection = pypyodbc.connect('Driver={SQL Server};'
+                            'Server='+ mySqlServer +';'
+                            'Database='+ myDataBase +';')
+
+  curcor = connection.cursor()
+  query = f'SELECT * FROM [dbo].[RECIPE] WHERE ID = {id}'
+  curcor.execute(query)
+  result = curcor.fetchall()
+  for item in result:
+    recipe = Recipe(item[0],item[1],item[2],item[3])
+
+  connection.close()
+  return recipe
+

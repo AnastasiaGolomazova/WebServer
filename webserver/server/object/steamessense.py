@@ -6,3 +6,6 @@ class SteamEssense(AbstractObject):
         AbstractObject.__init__(self, id, '')
         self.Essense1Id = essense1Id
         self.Essense2Id = essense2Id
+
+    def toJson(self):
+        return f'{{"essense1Id" : {self.Essense1Id}, "essense2Id" : "{self.Essense2Id}"}}'

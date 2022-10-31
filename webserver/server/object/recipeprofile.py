@@ -6,3 +6,8 @@ class RecipeProfile(AbstractObject):
         AbstractObject.__init__(self, 0, '')
         self.ProfileId = profileId
         self.RecipeId = recipeId
+
+
+
+    def toJson(self):
+       return f'{{"essense1Id" : {self.Essense1Id}, "essense2Id" : "{self.Essense2Id}"}}'

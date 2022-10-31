@@ -21,6 +21,7 @@ class DataStorage(metaclass = Singleton):
         self.Profile = []
         self.SteamEssense = []
         self.RecipeProfile = []
+        self.CombinationEssense = []
 
 
     @classmethod
@@ -42,10 +43,10 @@ class DataStorage(metaclass = Singleton):
         self.TypeProfile.append(typeProfile)
 
     def addRecipe (self, typeEssense):
-        self.TypeEssense.append(typeEssense)
+        self.Recipe.append(typeEssense)
 
     def addTypeEssense(self, recipe):
-        self.Recipe.append(recipe)
+        self.TypeEssense.append(recipe)
 
     def addEffect(self, effect):
         self.Effect.append(effect)
@@ -59,12 +60,28 @@ class DataStorage(metaclass = Singleton):
     def addSteamEssense (self, steamEssense):
         self.SteamEssense.append(steamEssense)
 
+    def addCombinationEssense (self, steamEssense):
+        self.CombinationEssense.append(steamEssense)
+
 
     def getEssense(self, id):
         for i in self.Essense:
             if i.Id == id:
                 return i
         return False
+
+    def getCombinationEssense(self, id):
+        for i in self.CombinationEssense:
+            if i.Id == id:
+                return i
+        return False
+
+    def getCombinationEssenseByRecipe(self, id):
+        res = []
+        for i in self.CombinationEssense:
+            if i.RecipeId == id:
+                 res.append(i)
+        return res
 
     def getEffectEssense(self, id):
         for i in self.EffectEssense:
