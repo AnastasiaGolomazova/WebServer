@@ -199,13 +199,14 @@ def insertRecipe(idProfile, name, chbx):
 
   curcor = connection.cursor()
   curcor.execute("""INSERT INTO anooog1 VALUES ([NAME], [VERIFICATION], [CHECKBOX])""",(name,0,chbx))
-  curcor.execute(query)
   query = f'SELECT TOP 1 ID FROM [dbo].[RECIPE] ORDER BY ID DESC'
+  curcor.execute(query)
   result = curcor.fetchone()
   for item in result:
     id = item[0]
   query = f'INSERT INTO [dbo].[RECIPE_PROFILE] ([PROFILE_ID], [RECIPE_ID]) VALUES ({idProfile}, {id})'
   curcor.execute(query)
+  connection.commit()
   connection.close()
   return id
 
